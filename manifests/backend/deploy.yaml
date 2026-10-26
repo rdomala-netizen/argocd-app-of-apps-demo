@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deploy
+  namespace: product1-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: backend
+  template:
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+        - name: backend
+          image: rdomala-netizen/product1-backend:v1.0.0   # bump this tag to release
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000

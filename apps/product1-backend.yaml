@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: product1-backend
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io   # deleting this app also deletes its resources
+spec:
+  project: product1-project
+  source:
+    repoURL: https://github.com/rdomala-netizen/argocd-app-of-apps-demo.git
+    targetRevision: main
+    path: manifests/backend
+  destination:
+    server: https://dev-control-plane:6443   # dev cluster, where product1 runs
+    namespace: product1-ns
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - PruneLast=true
+      - ApplyOutOfSyncOnly=true
