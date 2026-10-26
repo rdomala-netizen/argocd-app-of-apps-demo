@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: rdomala-netizen/product1-backend:v1.0.0   # bump this tag to release
+          image: rdomala/product1-backend:v1.1.0   # bump this tag to release
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5000
